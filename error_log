@@ -1,0 +1,38 @@
+[13-Jan-2014 11:02:45] PHP Fatal error:  Class 'OAuth' not found in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 31
+[13-Jan-2014 11:03:50] PHP Fatal error:  Class 'OAuth' not found in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 31
+[13-Jan-2014 11:03:56] PHP Fatal error:  Class 'OAuth' not found in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 31
+[13-Jan-2014 11:06:55] PHP Fatal error:  Class 'OAuth' not found in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 31
+[13-Jan-2014 11:08:20] PHP Fatal error:  Uncaught exception 'OAuthException' with message 'Invalid auth/bad request (got a 401, expected HTTP/1.1 20X or a redirect)' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php:80
+Stack trace:
+#0 /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php(80): OAuth->getAccessToken('https://oauth-a...', '', '')
+#1 {main}
+  thrown in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 80
+[14-Jan-2014 15:22:31] PHP Fatal error:  Uncaught exception 'OAuthException' with message 'Invalid auth/bad request (got a 401, expected HTTP/1.1 20X or a redirect)' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php:80
+Stack trace:
+#0 /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php(80): OAuth->getAccessToken('https://oauth-a...', '', '')
+#1 {main}
+  thrown in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 80
+[28-Jan-2014 10:55:02] PHP Fatal error:  Uncaught exception 'OAuthException' with message 'Invalid auth/bad request (got a 401, expected HTTP/1.1 20X or a redirect)' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php:80
+Stack trace:
+#0 /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php(80): OAuth->getAccessToken('https://oauth-a...', '', '')
+#1 {main}
+  thrown in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 80
+[28-Jan-2014 10:55:40] PHP Fatal error:  Uncaught exception 'OAuthException' with message 'Invalid auth/bad request (got a 401, expected HTTP/1.1 20X or a redirect)' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php:80
+Stack trace:
+#0 /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php(80): OAuth->getAccessToken('https://oauth-a...', '', '')
+#1 {main}
+  thrown in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 80
+[31-Jan-2014 12:31:43] PHP Fatal error:  Uncaught exception 'OAuthException' with message 'Invalid auth/bad request (got a 401, expected HTTP/1.1 20X or a redirect)' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php:80
+Stack trace:
+#0 /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php(80): OAuth->getAccessToken('https://oauth-a...', '', '')
+#1 {main}
+  thrown in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_example.php on line 80
+[02-Feb-2014 06:20:17] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:21:21] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:21:56] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:23:02] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:23:23] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:24:45] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:24:57] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:25:33] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
+[02-Feb-2014 06:25:43] PHP Parse error:  syntax error, unexpected '{' in /home3/quimikar/public_html/federicogiust/beatportapi/beatport_api_call.php on line 3
