@@ -17,15 +17,15 @@ include('log_calls.php');
 date_default_timezone_set('America/Los_Angeles');
 
 // Beatport URLs. Note the oauth_callback after the request url. This is needed to catch the verifier string:
-$req_url = 'https://oauth-api.beatport.com/identity/1/oauth/request-token?oauth_callback='.urlencode('http://www.yourdomain.com/beatport_callback.php');
+$req_url = 'https://oauth-api.beatport.com/identity/1/oauth/request-token?oauth_callback='.urlencode(WEBSITE);
 $authurl = 'https://oauth-api.beatport.com/identity/1/oauth/authorize';
 $auth_submiturl = "https://oauth-api.beatport.com/identity/1/oauth/authorize-submit";
 $acc_url = 'https://oauth-api.beatport.com/identity/1/oauth/access-token';
 
-$conskey = 'CONSUMERKEY'; // Beatport Consumer Key
-$conssec = 'SECRET'; // Beatport Consumer Secret
-$beatport_login = "USERNAME"; // Beatport Username
-$beatport_password = "PASSWORD"; // Beatport Password
+$conskey = CONSUMERKEY; // Beatport Consumer Key
+$conssec = SECRETKEY; // Beatport Consumer Secret
+$beatport_login = BEATPORTLOGIN; // Beatport Username
+$beatport_password = BEATPORTPASSWORD; // Beatport Password
 
 	if(isset($_GET['facets'])) {
 		$facets=$_GET['facets'];
