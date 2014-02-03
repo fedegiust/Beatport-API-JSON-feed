@@ -1,6 +1,6 @@
 <?php
 /**
- * Beatport OAuthConnect by Tim Brandwijk - posted in groups.google.com/forum/#!forum/beatport-api
+ * Beatport OAuthConnect by Federico Giust
  *
  * Needs this beatport_callback.php script to work:
  *  <?php
@@ -12,18 +12,20 @@
  *   ?>
  */
 
+include('log_calls.php');
+
 date_default_timezone_set('America/Los_Angeles');
 
 // Beatport URLs. Note the oauth_callback after the request url. This is needed to catch the verifier string:
-$req_url = 'https://oauth-api.beatport.com/identity/1/oauth/request-token?oauth_callback='.urlencode('http://www.federicogiust.com/beatportapi/beatport_callback.php');
+$req_url = 'https://oauth-api.beatport.com/identity/1/oauth/request-token?oauth_callback='.urlencode('http://www.yourdomain.com/beatport_callback.php');
 $authurl = 'https://oauth-api.beatport.com/identity/1/oauth/authorize';
 $auth_submiturl = "https://oauth-api.beatport.com/identity/1/oauth/authorize-submit";
 $acc_url = 'https://oauth-api.beatport.com/identity/1/oauth/access-token';
 
-$conskey = 'cdb32c853d415b9dc957b9abb15f807596e434bf'; // Beatport Consumer Key
-$conssec = '4cd23f8e579df7d864a079981d074dfae8d76e58'; // Beatport Consumer Secret
-$beatport_login = "federicog"; // Beatport Username
-$beatport_password = "fgnr070107"; // Beatport Password
+$conskey = 'CONSUMERKEY'; // Beatport Consumer Key
+$conssec = 'SECRET'; // Beatport Consumer Secret
+$beatport_login = "USERNAME"; // Beatport Username
+$beatport_password = "PASSWORD"; // Beatport Password
 
 	if(isset($_GET['facets'])) {
 		$facets=$_GET['facets'];
