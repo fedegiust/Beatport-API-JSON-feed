@@ -1,6 +1,7 @@
 <?php
 /**
  * Beatport OAuth API by Federico Giust
+ * Based on Beatport OAuth Connect by Tim Brandwijk
  *
  * Needs beatport_callback.php script to verify the credentials:
  *  <?php
@@ -36,7 +37,7 @@ $conssec = SECRETKEY; // Beatport Consumer Secret
 $beatport_login = BEATPORTLOGIN; // Beatport Username
 $beatport_password = BEATPORTPASSWORD; // Beatport Password
 
-// URL Parameters to generate the api call
+// URL Parameters to make the api call and generate a JSON object
 if(isset($_GET['facets'])) {
 	$facets=$_GET['facets'];
 }
