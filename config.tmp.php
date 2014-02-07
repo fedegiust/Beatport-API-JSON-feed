@@ -1,4 +1,8 @@
 <?php
+/**
+* DB Log Settings
+*/
+
 /** MySQL database */
 define('DB_NAME', '');
 
@@ -8,7 +12,14 @@ define('DB_USER', '');
 /** MySQL database password */
 define('DB_PASSWORD', '');
 
-/** Website URL for callback */
+/** MySQL hostname for example: localhost */
+define('DB_HOST', '');
+
+/**
+* API Call OAuth Settings
+*/
+
+/** Website URL where beatport_api_callback.php is sitting  */
 define('WEBSITE', '');
 
 // Beatport API Consumer Key
@@ -22,6 +33,5 @@ define('BEATPORTLOGIN', '');
 
 define('BEATPORTPASSWORD', '');
 
-/** MySQL hostname */
-define('DB_HOST', 'localhost');
+
 ?>

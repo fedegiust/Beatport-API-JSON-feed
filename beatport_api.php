@@ -1,8 +1,8 @@
 <?php
 /**
- * Beatport OAuthConnect by Federico Giust
+ * Beatport OAuth API by Federico Giust
  *
- * Needs this beatport_callback.php script to work:
+ * Needs beatport_callback.php script to verify the credentials:
  *  <?php
  *       $credentials = array();
  *       foreach ($_GET as $key => $value) {
@@ -12,8 +12,17 @@
  *   ?>
  */
 
+/**
+* Include config file where we store the corresponding constants.
+*/
+include 'config.php';
+
+/**
+* Include to log the api calls in the db.
+*/
 include('log_calls.php');
 
+// Set default timezone to beatport timezone
 date_default_timezone_set('America/Los_Angeles');
 
 // Beatport URLs. Note the oauth_callback after the request url. This is needed to catch the verifier string:
@@ -27,41 +36,42 @@ $conssec = SECRETKEY; // Beatport Consumer Secret
 $beatport_login = BEATPORTLOGIN; // Beatport Username
 $beatport_password = BEATPORTPASSWORD; // Beatport Password
 
-	if(isset($_GET['facets'])) {
-		$facets=$_GET['facets'];
-	}
-	if(isset($_GET['sortBy'])){
-		$sortBy=$_GET['sortBy'];
-	}
-	if(isset($_GET['perPage'])){
-		$perPage=$_GET['perPage'];
-	}
-	if(isset($_GET['id'])){
-		$id=$_GET['id'];
-	}
-	if(isset($_GET['url'])){
-		$url=$_GET['url'];
-	}
-	
-	$qrystring = '';
+// URL Parameters to generate the api call
+if(isset($_GET['facets'])) {
+	$facets=$_GET['facets'];
+}
+if(isset($_GET['sortBy'])){
+	$sortBy=$_GET['sortBy'];
+}
+if(isset($_GET['perPage'])){
+	$perPage=$_GET['perPage'];
+}
+if(isset($_GET['id'])){
+	$id=$_GET['id'];
+}
+if(isset($_GET['url'])){
+	$url=$_GET['url'];
+}
 
-	if(isset($facets) && strlen($facets) > 0){
-		$qrystring .= '?facets=' . urlencode($facets);
-	}elseif(isset($id) && strlen($id) >0) {
-		$qrystring .= '?id=' . urlencode($id);
-	}else{
-		echo 'Parameter missing';
-		exit;
-	}
-	if(isset($sortBy) && strlen($sortBy) > 0){
-		$qrystring .= '&sortBy=' . urlencode($sortBy);
-	}
-	if(isset($perPage) && strlen($perPage) > 0){
-		$qrystring .= '&perPage=' . urlencode($perPage);
-	}
-	if(isset($url) && strlen($url) > 0){
-		$path = $url;
-	}
+$qrystring = '';
+
+if(isset($facets) && strlen($facets) > 0){
+	$qrystring .= '?facets=' . urlencode($facets);
+}elseif(isset($id) && strlen($id) >0) {
+	$qrystring .= '?id=' . urlencode($id);
+}else{
+	echo 'Parameter missing';
+	exit;
+}
+if(isset($sortBy) && strlen($sortBy) > 0){
+	$qrystring .= '&sortBy=' . urlencode($sortBy);
+}
+if(isset($perPage) && strlen($perPage) > 0){
+	$qrystring .= '&perPage=' . urlencode($perPage);
+}
+if(isset($url) && strlen($url) > 0){
+	$path = $url;
+}
 
 /**
  * Step 1: Get a Request token
@@ -71,10 +81,8 @@ $oauth->enableDebug();
 $oauth->setAuthType(OAUTH_AUTH_TYPE_FORM); // switch to POST request
 $request_token_info = $oauth->getRequestToken($req_url);
 
-if(!empty($request_token_info)) {
-    //echo 'Received OAuth Request token: ' . $request_token_info['oauth_token']."\n";
-    //echo 'Received OAuth Request token secret: ' . $request_token_info['oauth_token_secret']."\n";
-} else {
+// Display error if there's been a problem fetching the request token.
+if(empty($request_token_info)) {
     print "Failed fetching request token, response was: " . $oauth->getLastResponse();
     exit();
 }
@@ -91,6 +99,7 @@ ini_set('max_execution_time', 500);
 $submit = "Login";
 $url = $auth_submiturl;
 
+// Using cURL generate and make the call to the Beatport API
 $curl_connection_bp = curl_init();
 curl_setopt($curl_connection_bp, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl_connection_bp, CURLOPT_URL, $url);
@@ -110,16 +119,11 @@ curl_setopt($curl_connection_bp, CURLOPT_POSTFIELDS, $post_string);
 $beatport_response = curl_exec($curl_connection_bp);
 $beatport_response = json_decode($beatport_response);
 
-//var_dump($beatport_response);
-//print_r($beatport_response);
-//exit;
 /**
  * Step 4: Use verifier string to request the Access Token
  */
 $get_access_token = $oauth->getAccessToken($acc_url, "", $beatport_response->oauth_verifier);
-if(!empty($get_access_token)) {
-   // print_r($get_access_token);
-} else {
+if(empty($get_access_token)) {
     print "Failed fetching access token, response was: " . $oauth->getLastResponse();
     exit();
 }
