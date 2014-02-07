@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Beatport API OAuth JSON by fedegiust</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Beatport API OAuth JSON</h1>
+        <h2>Connect to Beatport API using PHP OAuth to generate a JSON object with the results</h2>
+        <a href="https://github.com/fedegiust/Beatport-API-JSON-feed" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="beatport-api-oauth" class="anchor" href="#beatport-api-oauth"><span class="octicon octicon-link"></span></a>Beatport API OAuth</h1>
+
+<p>With this PHP script you will be able to make api calls to the new Beatport API using OAuth and generate a JSON feed.</p>
+
+<p>So for example you can use this on your server and using jQuery ajax to get a JSON object and do anything you need with it on your server.</p>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<ul>
+<li>PHP</li>
+<li>Beatport API Key and login details</li>
+<li>PHP OAuth (<a href="http://php.net/manual/en/book.oauth.php">http://php.net/manual/en/book.oauth.php</a>)</li>
+<li>MySQL (Optional if you want to log the api calls to a db)</li>
+</ul><h1>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h1>
+
+<p>Once you've installed PHP OAuth, upload this script to your server.</p>
+
+<p>Edit config.tmp.php and fill in the constant declarations with the corresponding values</p>
+
+<pre><code>&lt;?php
+/**
+* DB Log Settings
+*/
+
+/** MySQL database */
+define('DB_NAME', '');
+
+/** MySQL database username */
+define('DB_USER', '');
+
+/** MySQL database password */
+define('DB_PASSWORD', '');
+
+/** MySQL hostname for example: localhost */
+define('DB_HOST', '');
+
+/**
+* API Call OAuth Settings
+*/
+
+/** Website URL where beatport_api_callback.php is sitting  */
+define('WEBSITE', '');
+
+// Beatport API Consumer Key
+define('CONSUMERKEY', '');
+
+// Beatport API Secret Key
+define('SECRETKEY', '');
+
+// Beatport Login Details
+define('BEATPORTLOGIN', '');
+
+define('BEATPORTPASSWORD', '');
+
+?&gt;
+</code></pre>
+
+<p>Rename config.tmp.php to config.php</p>
+
+<p>There are a couple of query string parameters that you can use to make different calls:</p>
+
+<table>
+<thead><tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>facets</td>
+<td>facets to be used in the api call (for example: performerName:Richie+Hawtin)</td>
+</tr>
+<tr>
+<td>sortBy</td>
+<td>how do you want the data to be sorted</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>how many results you want to get per page</td>
+</tr>
+<tr>
+<td>id</td>
+<td>track id (this can be used if no facets is being used)</td>
+</tr>
+<tr>
+<td>url</td>
+<td>path to be concatenated to the call if you want tracks, release, etc</td>
+</tr>
+<tr>
+<td></td>
+<td>check Beatport API Documentation for more details)</td>
+</tr>
+</tbody>
+</table><p>You can start making calls to a url like this:</p>
+
+<pre><code>www.yourwebsite.com/beatportapi/beatport_api.php?facets=performerName:Richie+Hawtin&amp;sortBy=publishDate%20desc&amp;perPage=10&amp;url=tracks
+</code></pre>
+
+<p>This will generate the api call to a URL like this:</p>
+
+<pre><code>https://oauth-api.beatport.com/catalog/3/tracks?facets=artistName%3ARichie+Hawtin&amp;perPage=10&amp;sortBy=publishDate+DESC
+</code></pre>
+
+<p>Which will get you a JSON object like this:</p>
+
+<pre><code>{
+  "metadata": {
+    "host": "api.beatport.com",
+    "path": "/catalog/tracks",
+    "query": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC",
+    "page": 1,
+    "perPage": 10,
+    "count": 0,
+    "totalPages": 0,
+    "perPageOptions": [
+      {
+        "value": 50,
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=50&amp;sortBy=publishDate+DESC"
+      },
+      {
+        "value": 100,
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=100&amp;sortBy=publishDate+DESC"
+      },
+      {
+        "value": 150,
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=150&amp;sortBy=publishDate+DESC"
+      }
+    ],
+    "facets": {
+      "fields": []
+    },
+    "appliedFacets": [],
+    "dateFilters": [
+      {
+        "name": "today",
+        "startDate": "2014-02-07",
+        "endDate": "2014-02-07",
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC&amp;publishDateStart=2014-02-07&amp;publishDateEnd=2014-02-07",
+        "applied": false
+      },
+      {
+        "name": "yesterday",
+        "startDate": "2014-02-06",
+        "endDate": "2014-02-07",
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC&amp;publishDateStart=2014-02-06&amp;publishDateEnd=2014-02-07",
+        "applied": false
+      },
+      {
+        "name": "weekToDate",
+        "startDate": "2014-01-31",
+        "endDate": "2014-02-07",
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC&amp;publishDateStart=2014-01-31&amp;publishDateEnd=2014-02-07",
+        "applied": false
+      },
+      {
+        "name": "monthToDate",
+        "startDate": "2014-01-07",
+        "endDate": "2014-02-07",
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC&amp;publishDateStart=2014-01-07&amp;publishDateEnd=2014-02-07",
+        "applied": false
+      },
+      {
+        "name": "yearToDate",
+        "startDate": "2013-02-07",
+        "endDate": "2014-02-07",
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC&amp;publishDateStart=2013-02-07&amp;publishDateEnd=2014-02-07",
+        "applied": false
+      },
+      {
+        "custom": true,
+        "name": "customRange",
+        "applied": false,
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC"
+      }
+    ],
+    "rangeFilters": {
+      "bpm": {
+        "custom": true,
+        "rangeName": "bpm",
+        "applied": false,
+        "applyQuery": "facets%5B0%5D=artistName%3ARichie%2BHawtin&amp;perPage=10&amp;sortBy=publishDate+DESC"
+      }
+    },
+    "spellcheck": null
+  },
+  "results": []
+}
+</code></pre>
+
+<p>Feel free to extend this script to suit your needs.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/fedegiust/Beatport-API-JSON-feed/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/fedegiust/Beatport-API-JSON-feed/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/fedegiust/Beatport-API-JSON-feed"></a> is maintained by <a href="https://github.com/fedegiust">fedegiust</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
