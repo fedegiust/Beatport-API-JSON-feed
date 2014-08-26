@@ -140,6 +140,8 @@ $oauth->setToken($get_access_token['oauth_token'],$get_access_token['oauth_token
 $oauth->fetch('https://oauth-api.beatport.com/catalog/3/' . $path . $qrystring);
 $json = $oauth->getLastResponse();
 
+header('Content-Type: application/json');
+
 echo $json;
 
 ?>
